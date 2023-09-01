@@ -1,5 +1,5 @@
 from django.contrib import admin
-from contact.models import Contact
+from contact.models import Contact, Category
 
 
 @admin.register(Contact)
@@ -12,6 +12,7 @@ class ContactAdmin(admin.ModelAdmin):
         'last_name',
         'phone',
         'email',
+        'category',
     )
 
     # ordena os a exibição dos dados
@@ -34,3 +35,10 @@ class ContactAdmin(admin.ModelAdmin):
 
     # deixa o campo de first name editável na área de pesquisa
     # list_editable = 'first_name'
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+    )
