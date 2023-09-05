@@ -13,6 +13,7 @@ class ContactAdmin(admin.ModelAdmin):
         'phone',
         'email',
         'category',
+        'show',
     )
 
     # ordena os a exibição dos dados
@@ -34,7 +35,7 @@ class ContactAdmin(admin.ModelAdmin):
     list_max_show_all = 200
 
     # deixa o campo de first name editável na área de pesquisa
-    # list_editable = 'first_name'
+    list_editable = 'show',
 
 
 @admin.register(Category)
