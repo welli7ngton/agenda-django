@@ -19,7 +19,9 @@
                 {% for contact in contacts %}
                     <tr class="table-row">
                         <td class="table-cel">
-                            <a class="table-link" href="#">
+                            {% comment %} para adicionar parametros das urls nos links seguimos a seguinte sintaxe: {% endcomment %}
+                            {% comment %} {% url'nome_do_app:nome_da_url' parametro_dinamico %} {% endcomment %}
+                            <a class="table-link" href="{% url 'contact:contact' contact.id %}">
                                {{contact.id}} 
                             </a>
                         </td>
