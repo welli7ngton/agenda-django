@@ -1,7 +1,7 @@
 {% extends 'global/base.html' %}
 
 {% block content %}
-    {% if contacts %}
+    {% if page_obj %}
     <div class="responsive_table">
         <table class="contacts-table">
             <caption class="table-caption">
@@ -17,11 +17,13 @@
                 </tr>
             </thead>
             <tbody>
-                {% for contact in contacts %}
+                {% for contact in page_obj %}
                     <tr class="table-row">
                         <td class="table-cel">
-                            {% comment %} para adicionar parametros das urls nos links seguimos a seguinte sintaxe: {% endcomment %}
-                            {% comment %} {% url'nome_do_app:nome_da_url' parametro_dinamico %} {% endcomment %}
+                            {% comment %} 
+                                para adicionar parametros das urls nos links seguimos a seguinte sintaxe: 
+                                {% url 'nome_do_app:nome_da_url' parametro_dinamico %} 
+                            {% endcomment %}
                             <a class="table-link" href="{% url 'contact:contact' contact.id %}">
                                {{contact.id}} 
                             </a>
@@ -48,7 +50,7 @@
         <h1 class="single-contact-name">
             Nenhum contato encontrado.
         </h1>
-      
+
     </div>
     {% endif %}
 {% endblock content %}
