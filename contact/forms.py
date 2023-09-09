@@ -59,10 +59,17 @@ class ContactForm(forms.ModelForm):
 
     def clean(self):
 
-        self.add_error(
-            'first_name',
-            ValidationError(
-                'Mensagem de erro teste', code='invalid'
-            )
-        )
+        # self.add_error(
+        #     'first_name',
+        #     ValidationError(
+        #         'Mensagem de erro teste', code='invalid'
+        #     )
+        # )
         return super().clean()
+
+    def clean_first_name(self):
+        cleaned_data = self.cleaned_data.get('first_name')
+        if cleaned_data == 'aaa':
+            raise ValidationError(f'nome inaprópriado ({cleaned_data})')
+
+        return cleaned_data
