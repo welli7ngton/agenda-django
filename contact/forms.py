@@ -4,7 +4,13 @@ from contact.models import Contact
 
 
 class ContactForm(forms.ModelForm):
-
+    picture = forms.ImageField(
+        widget=forms.FileInput(
+            attrs={
+                'accept': 'image/*'
+            }
+        )
+    )
     # email = forms.EmailField(
     #     widget=forms.TextInput(
     #         attrs={
@@ -37,6 +43,7 @@ class ContactForm(forms.ModelForm):
         fields = (
             'first_name', 'last_name', 'phone',
             'email', 'description', 'category',
+            'picture',
         )
         # criando um novo widget e substituindo o antigo
         widgets = {
