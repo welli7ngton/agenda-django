@@ -1,6 +1,8 @@
 from django import forms
 from contact.models import Contact
-# from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 
 class ContactForm(forms.ModelForm):
@@ -79,3 +81,27 @@ class ContactForm(forms.ModelForm):
     #         raise ValidationError(f'nome inaprópriado ({cleaned_data})')
 
     #     return cleaned_data
+
+
+class RegisterForm(UserCreationForm):
+
+    first_name = forms.CharField(max_length=7, required=True)
+
+    class Meta:
+        model = User
+        fields = (
+            'first_name', 'last_name', 'email',
+            'username', 'password1', 'password2'
+        )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        print(User.objects.filter(email=email), 'print')
+
+        if User.objects.filter(email=email).exists():
+            self.add_error(
+                'email',
+                ValidationError('Email ja existente.', code='invalid')
+            )
+
+        return email
