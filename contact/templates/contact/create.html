@@ -22,7 +22,13 @@
           {{ field }}
          
           {{ field.errors }}
-
+          
+          {% if field.name == 'picture'  and field.value.url%}
+            <p>Foto:</p>
+            <p>
+              <img src="{{ field.value.url }}" alt="imagem do contato">
+            </p>
+          {% endif %}
         </div>
         {% endfor %}
       </div>
