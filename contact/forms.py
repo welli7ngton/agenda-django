@@ -12,7 +12,8 @@ class ContactForm(forms.ModelForm):
             attrs={
                 'accept': 'image/*'
             }
-        )
+        ),
+        required=False
     )
     # email = forms.EmailField(
     #     widget=forms.TextInput(
