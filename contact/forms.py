@@ -1,3 +1,4 @@
+# flake8:noqa
 from django import forms
 from contact.models import Contact
 from django.contrib.auth.forms import UserCreationForm
@@ -15,6 +16,18 @@ class ContactForm(forms.ModelForm):
         ),
         required=False
     )
+
+    last_name = forms.CharField(
+        required=True,
+        label='Sobrenome'
+    )
+    
+    phone = forms.CharField(
+        required=False,
+        label='Telefone',
+    )
+
+
     # email = forms.EmailField(
     #     widget=forms.TextInput(
     #         attrs={
@@ -60,10 +73,10 @@ class ContactForm(forms.ModelForm):
                     # adicionando classes no textarea do html que será gerado
                     'class': 'classe-a classe-b',
                     # alterando o placeholder no textarea do html
-                    'placeholder': 'First Name',
+                    'placeholder': 'Nome',
                     'help_text': 'texto ajuda',
-
-                }
+                    'label': 'Nome',
+                },
             ),
         }
 
@@ -96,6 +109,16 @@ class RegisterForm(UserCreationForm):
             'username', 'password1', 'password2'
         )
 
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Nome',
+                    'class': 'teste',
+                    'label': 'Nome',
+                }
+            ),
+        }
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         print(User.objects.filter(email=email), 'print')
@@ -117,13 +140,15 @@ class RegisterUpdateForm(forms.ModelForm):
         help_text='Required.',
         error_messages={
             'min_length': 'Please, add more than 2 letters.'
-        }
+        },
+        label='Nome'
     )
     last_name = forms.CharField(
         min_length=2,
         max_length=30,
         required=True,
-        help_text='Required.'
+        help_text='Required.',
+        label='Sobrenome'
     )
 
     password1 = forms.CharField(
